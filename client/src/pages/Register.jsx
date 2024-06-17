@@ -1,16 +1,18 @@
-const Register = () => {
-    return(
-        <>
-        <p>REGISTER</p>
-        <form>
-            <input type='text' placeholder='USERNAME' />
-            <input type='password' placeholder='PASSWORD' />
-            <button type='send' value='LOGIN'>
-                LOGIN
-            </button>
-        </form>
-        </>
-    )
-}
+import { StyledContent } from './styles';
 
-export default Register
+const Register = () => {
+	return (
+		<StyledContent>
+			<p>REGISTER</p>
+			<form>
+				<input type='text' placeholder='USERNAME' />
+				<input type='password' placeholder='PASSWORD' />
+				<button type='send' value='LOGIN'>
+					REGISTER
+				</button>
+			</form>
+		</StyledContent>
+	);
+};
+
+export default Register;

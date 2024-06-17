@@ -1,12 +1,20 @@
-import { StyledHeader, StyledLoginContainer } from './styles';
+import { Link } from 'react-router-dom';
+import {
+	StyledHeader,
+	StyledLoginContainer,
+	StyledViewsContainer
+} from './styles';
 
 const Header = () => {
 	return (
 		<StyledHeader>
-			<p>LOGO</p>
+			<Link to='/'>LOGO</Link>
+			<StyledViewsContainer>
+				<Link to='/users'>VIEW USERS</Link>
+			</StyledViewsContainer>
 			<StyledLoginContainer>
-				<p>LOGIN</p>
-				<p>CREATE USER</p>
+				<Link to='/login'>LOGIN</Link>
+				<Link to='/register'>CREATE USER</Link>
 			</StyledLoginContainer>
 		</StyledHeader>
 	);

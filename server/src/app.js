@@ -1,8 +1,9 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const app = express();
 
+const userRoutes = require('./routes/user.routes');
 require('dotenv').config();
 
 // Rutas
@@ -18,6 +19,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Uso de rutas
+app.use('/api/users', userRoutes);
 
 const startServer = async () => {
   try {

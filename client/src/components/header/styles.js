@@ -11,9 +11,14 @@ const StyledHeader = styled.header`
 	border-radius: 0px 20px 20px 0px;
 `;
 
+const StyledViewsContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+
 const StyledLoginContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
 
-export { StyledHeader, StyledLoginContainer };
+export { StyledHeader, StyledViewsContainer, StyledLoginContainer };
