@@ -1,6 +1,6 @@
 import { StyledContent } from './styles';
 
-const Content = () => {
+const HomePage = () => {
 	return (
 		<StyledContent>
 			<p>LOGIN</p>
@@ -15,4 +15,4 @@ const Content = () => {
 	);
 };
 
-export default Content;
+export default HomePage;

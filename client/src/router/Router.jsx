@@ -1,12 +1,14 @@
 import { Route, Routes } from 'react-router';
 import Layout from '../layouts/Layout';
-import Content from '../components/content/Content';
+import HomePage from '../pages/HomePage';
+import Register from '../pages/Register';
 
 const Router = () => {
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>
-				<Route index element={<Content />} />
+				<Route index element={<HomePage />} />
+				<Route path='/register' element={<Register />} />
 			</Route>
 		</Routes>
 	);
