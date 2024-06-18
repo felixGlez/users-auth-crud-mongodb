@@ -4,5 +4,7 @@ const userRoutes = express.Router();
 
 userRoutes.get('/', controller.getAllUsers);
 userRoutes.post('/', controller.createUser);
+userRoutes.patch('/:id', controller.updateUser);
+userRoutes.delete('/:id', controller.deleteUser);
 
 module.exports = userRoutes;
