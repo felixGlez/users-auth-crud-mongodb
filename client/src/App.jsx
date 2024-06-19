@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyles } from './styles/GlobalStyles';
 import Router from './router/Router';
+import UserProvider from './providers/User.provider';
 
 // https://randomuser.me/
 
@@ -8,9 +9,11 @@ const App = () => {
 	return (
 		<>
 			<GlobalStyles />
-			<BrowserRouter>
-				<Router />
-			</BrowserRouter>
+			<UserProvider>
+				<BrowserRouter>
+					<Router />
+				</BrowserRouter>
+			</UserProvider>
 		</>
 	);
 };
