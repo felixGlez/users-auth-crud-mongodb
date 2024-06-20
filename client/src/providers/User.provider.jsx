@@ -8,7 +8,7 @@ const UserProvider = ({ children }) => {
 
 	useEffect(() => {
 		fetchUsers(setUsers);
-	}, []);
+	}, [users]);
 
 	return (
 		<UserContext.Provider value={{ users, setUsers }}>

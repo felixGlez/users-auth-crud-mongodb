@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	StyledContent,
 	StyledTitle,
@@ -8,11 +8,14 @@ import {
 	StyledUsersContainer
 } from './styles';
 import { URLS } from '../constants/urls';
-import { UserContext } from '../contexts/UserContext';
+import { getData } from '../utils/api';
 
 const UsersList = () => {
-	const { users } = useContext(UserContext);
-	console.log(users);
+	const [users, setUsers] = useState([]);
+
+	useEffect(() => {
+		fetchUsers(setUsers);
+	}, [users]);
 
 	return (
 		<StyledContent>
@@ -29,6 +32,15 @@ const UsersList = () => {
 			</StyledUsersContainer>
 		</StyledContent>
 	);
+};
+
+const fetchUsers = async setUsers => {
+	try {
+		const users = await getData(URLS.API_USERS);
+		setUsers(users);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export default UsersList;

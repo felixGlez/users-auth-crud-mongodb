@@ -26,13 +26,14 @@ controller.getUserById = async (req, res) => {
 
 // Crear un usuario nuevo
 controller.createUser = async (req, res) => {
-  const { username, email, password, img } = req.body;
-  if (!username || !email || !password)
+  const { username, name, email, password, img } = req.body;
+  if (!username || !name || !email || !password || !img)
     return res.status(400).send({ error: 'Bad request' + err });
 
   try {
     const newUser = new UserModel({
       username,
+      name,
       email,
       password,
       img,
