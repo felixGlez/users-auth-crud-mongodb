@@ -26,9 +26,9 @@ controller.getUserById = async (req, res) => {
 
 // Crear un usuario nuevo
 controller.createUser = async (req, res) => {
-  const { username, name, email, password, img } = req.body;
+  const { username, name, email, password, img, active } = req.body;
   if (!username || !name || !email || !password || !img)
-    return res.status(400).send({ error: 'Bad request' + err });
+    return res.status(400).send({ error: 'Bad request' });
 
   try {
     const newUser = new UserModel({
@@ -37,6 +37,7 @@ controller.createUser = async (req, res) => {
       email,
       password,
       img,
+      active,
     });
 
     await newUser.save();
@@ -55,7 +56,7 @@ controller.updateUser = async (req, res) => {
   try {
     const user = await UserModel.findById(id);
 
-    if (!user) return res.status(409).send({ error: 'User not exists' + err });
+    if (!user) return res.status(409).send({ error: 'User not exists' });
 
     await UserModel.updateOne({ _id: id }, { $set: { ...req.body } });
 

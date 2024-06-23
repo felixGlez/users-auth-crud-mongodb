@@ -15,3 +15,20 @@ export const postData = async (url, body = {}) => {
 	});
 	return data;
 };
+
+export const updateData = async (url, body = {}) => {
+	const data = await fetchData(url, {
+		method: METHODS.PATCH,
+		body: JSON.stringify(body),
+		headers: HEADERS
+	});
+	return data;
+};
+
+export const deleteData = async url => {
+	const data = await fetchData(url, {
+		method: METHODS.DELETE,
+		headers: HEADERS
+	});
+	return data;
+};

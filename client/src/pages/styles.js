@@ -23,10 +23,20 @@ const StyledUserCard = styled.div`
 	border: 1px solid #c5c5c5;
 	border-radius: 10px;
 	padding: 0.5rem 1.5rem;
+	cursor: pointer;
+	transition: 0.2s;
+
+	&:hover {
+		background-color: #cacacaca;
+	}
 `;
 
 const StyledUserCardText = styled.p`
 	font-size: 1.25rem;
+`;
+
+const StyledUserStatus = styled.p`
+	color: ${({ $active }) => ($active ? 'green' : 'red')};
 `;
 
 const StyledUserCardImg = styled.img`
@@ -34,11 +44,20 @@ const StyledUserCardImg = styled.img`
 	border-radius: 50%;
 `;
 
+const StyledUserDetails = styled.div`
+	width: 600px;
+	display: flex;
+	flex-direction: column;
+	padding: 0.5rem 1.5rem;
+`;
+
 export {
 	StyledContent,
 	StyledTitle,
+	StyledUsersContainer,
 	StyledUserCard,
 	StyledUserCardText,
-	StyledUsersContainer,
-	StyledUserCardImg
+	StyledUserCardImg,
+	StyledUserDetails,
+	StyledUserStatus
 };

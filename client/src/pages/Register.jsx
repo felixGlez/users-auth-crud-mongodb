@@ -2,14 +2,21 @@ import { StyledContent } from './styles';
 import { postData } from '../utils/api';
 import { URLS } from '../constants/urls';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 	const [formValues, setFormValues] = useState({});
 
+	const navigate = useNavigate();
+
 	return (
 		<StyledContent>
 			<p>REGISTER</p>
-			<form onSubmit={event => handleSubmit(event, formValues, setFormValues)}>
+			<form
+				onSubmit={event =>
+					handleSubmit(event, formValues, setFormValues, navigate)
+				}
+			>
 				<input
 					type='text'
 					name='username'
@@ -70,6 +77,18 @@ const Register = () => {
 					<img src='https://t3.ftcdn.net/jpg/05/53/79/60/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg' />
 				)}
 
+				<div>
+					<input
+						onChange={event =>
+							setFormValues({ ...formValues, active: event.target.checked })
+						}
+						type='checkbox'
+						name='active'
+						id='status'
+					/>
+					<label htmlFor='status'>Active</label>
+				</div>
+
 				<button type='submit' value='LOGIN'>
 					REGISTER
 				</button>
@@ -78,9 +97,10 @@ const Register = () => {
 	);
 };
 
-const createUser = async (formValues, setFormValues) => {
+const createUser = async (formValues, setFormValues, navigate) => {
 	await postData(URLS.API_USERS, formValues);
 	setFormValues({});
+	navigate('/users');
 };
 
 const generateRandomNumber = () => {
@@ -100,10 +120,10 @@ const saveValues = (event, formValues, setFormValues) => {
 	setFormValues({ ...formValues, [name]: value });
 };
 
-const handleSubmit = (event, formValues, setFormValues) => {
+const handleSubmit = (event, formValues, setFormValues, navigate) => {
 	event.preventDefault();
 	event.target.reset();
-	createUser(formValues, setFormValues);
+	createUser(formValues, setFormValues, navigate);
 };
 
 export default Register;
