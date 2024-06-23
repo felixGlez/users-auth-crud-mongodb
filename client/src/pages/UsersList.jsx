@@ -8,8 +8,7 @@ const UsersList = () => {
 	const [users, setUsers] = useState([]);
 	const [filter, setFilter] = useState(0);
 
-	const filteredUsers = filterUsers(users, filter);
-	console.log(filteredUsers);
+	const filteredUsers = filterByActive(users, filter);
 
 	useEffect(() => {
 		fetchUsers(setUsers);
@@ -36,7 +35,7 @@ const UsersList = () => {
 	);
 };
 
-const filterUsers = (users, filter) => {
+const filterByActive = (users, filter) => {
 	const filteredUsers = [...users];
 	switch (filter) {
 		case 0:

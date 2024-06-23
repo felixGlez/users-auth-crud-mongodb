@@ -1,14 +1,24 @@
 import { useState } from 'react';
 import { URLS } from '../../constants/urls';
 import { updateData } from '../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateUser = ({ userById, setUserById, setIsEditing }) => {
 	const [formValues, setFormValues] = useState({});
 
+	const navigate = useNavigate();
+
 	return (
 		<form
 			onSubmit={event =>
-				handleSubmit(event, formValues, userById, setUserById, setIsEditing)
+				handleSubmit(
+					event,
+					formValues,
+					userById,
+					setUserById,
+					setIsEditing,
+					navigate
+				)
 			}
 		>
 			<input
@@ -43,13 +53,20 @@ const UpdateUser = ({ userById, setUserById, setIsEditing }) => {
 	);
 };
 
-const updateUser = async (formValues, userById, setUserById, setIsEditing) => {
+const updateUser = async (
+	formValues,
+	userById,
+	setUserById,
+	setIsEditing,
+	navigate
+) => {
 	const { _id } = userById;
 	const updatedUser = await updateData(`${URLS.API_USERS}/${_id}`, formValues);
 
 	const user = updatedUser.filter(user => user._id === _id);
 	setUserById(user);
-	setIsEditing();
+	setIsEditing(false);
+	navigate('/users');
 };
 
 const handleSubmit = (
@@ -57,13 +74,14 @@ const handleSubmit = (
 	formValues,
 	userById,
 	setUserById,
-	setIsEditing
+	setIsEditing,
+	navigate
 ) => {
 	event.preventDefault();
 
 	if (!formValues.username || !formValues.name || !formValues.email) return;
 
-	updateUser(formValues, userById, setUserById, setIsEditing);
+	updateUser(formValues, userById, setUserById, setIsEditing, navigate);
 };
 
 export default UpdateUser;

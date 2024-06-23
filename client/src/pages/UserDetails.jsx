@@ -16,7 +16,7 @@ const UserDetails = () => {
 	const { id } = useParams();
 
 	const [userById, setUserById] = useState();
-	const [isEditing, setIsEditing] = useState();
+	const [isEditing, setIsEditing] = useState(false);
 
 	useEffect(() => {
 		getUser(id, setUserById);
@@ -39,7 +39,7 @@ const UserDetails = () => {
 				<button onClick={() => deleteUser(userById._id, navigate)}>
 					Delete User
 				</button>
-				<button onClick={() => setIsEditing(userById)}>Edit User</button>
+				<button onClick={() => setIsEditing(!isEditing)}>Edit User</button>
 			</div>
 
 			{isEditing && (
