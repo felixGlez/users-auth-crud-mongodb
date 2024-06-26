@@ -60,8 +60,8 @@ controller.updateUser = async (req, res) => {
 
     await UserModel.updateOne({ _id: id }, { $set: { ...req.body } });
 
-    const allUsers = await UserModel.find();
-    return res.status(200).send(allUsers);
+    const userUpdated = await UserModel.findById(id);
+    return res.status(200).send(userUpdated);
   } catch (err) {
     return res.status(500).send({ error: 'Error reading database' + err });
   }

@@ -5,6 +5,7 @@ import Register from '../pages/Register';
 import UsersList from '../pages/UsersList';
 import Login from '../pages/Login';
 import UserDetails from '../pages/UserDetails';
+import ProtectedRoutes from './ProtectedRoutes';
 
 const Router = () => {
 	return (
@@ -16,6 +17,7 @@ const Router = () => {
 				<Route path='/users' element={<UsersList />} />
 				<Route path='/user-details/:id' element={<UserDetails />} />
 			</Route>
+			<Route element={<ProtectedRoutes />}>{/* Ruta protegida */}</Route>
 		</Routes>
 	);
 };

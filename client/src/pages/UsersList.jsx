@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StyledContent, StyledTitle, StyledUsersContainer } from './styles';
 import { URLS } from '../constants/urls';
-import { getData } from '../utils/api';
+import { getData } from '../utils/api/users.api';
 import User from '../components/user/User';
 
 const UsersList = () => {

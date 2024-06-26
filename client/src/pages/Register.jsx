@@ -1,5 +1,5 @@
 import { StyledContent } from './styles';
-import { postData } from '../utils/api';
+import { postData } from '../utils/api/users.api';
 import { URLS } from '../constants/urls';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,24 +21,28 @@ const Register = () => {
 					type='text'
 					name='username'
 					placeholder='USERNAME'
+					required
 					onChange={event => saveValues(event, formValues, setFormValues)}
 				/>
 				<input
 					type='email'
 					name='email'
 					placeholder='EMAIL'
+					required
 					onChange={event => saveValues(event, formValues, setFormValues)}
 				/>
 				<input
 					type='text'
 					name='name'
 					placeholder='NAME'
+					required
 					onChange={event => saveValues(event, formValues, setFormValues)}
 				/>
 				<input
 					type='password'
 					name='password'
 					placeholder='PASSWORD'
+					required
 					onChange={event => saveValues(event, formValues, setFormValues)}
 				/>
 				<div>
@@ -48,6 +52,7 @@ const Register = () => {
 							name='gender'
 							id='men'
 							value='men'
+							required
 							onChange={event => saveValues(event, formValues, setFormValues)}
 						/>
 						Man
@@ -58,6 +63,7 @@ const Register = () => {
 							name='gender'
 							id='women'
 							value='women'
+							required
 							onChange={event => saveValues(event, formValues, setFormValues)}
 						/>
 						Woman
@@ -72,7 +78,7 @@ const Register = () => {
 					GENERATE IMAGE
 				</button>
 				{formValues.img ? (
-					<img src={formValues.img} alt='' />
+					<img src={formValues.img} />
 				) : (
 					<img src='https://t3.ftcdn.net/jpg/05/53/79/60/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg' />
 				)}
@@ -89,18 +95,20 @@ const Register = () => {
 					<label htmlFor='status'>Active</label>
 				</div>
 
-				<button type='submit' value='LOGIN'>
-					REGISTER
-				</button>
+				<button type='submit'>REGISTER</button>
 			</form>
 		</StyledContent>
 	);
 };
 
 const createUser = async (formValues, setFormValues, navigate) => {
-	await postData(URLS.API_USERS, formValues);
-	setFormValues({});
-	navigate('/users');
+	try {
+		await postData(URLS.API_USERS, formValues);
+		setFormValues({});
+		navigate('/users');
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const generateRandomNumber = () => {

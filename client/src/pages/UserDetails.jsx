@@ -6,14 +6,14 @@ import {
 	StyledUserDetails,
 	StyledUserStatus
 } from './styles';
-import { deleteData, getData } from '../utils/api';
+import { deleteData, getData } from '../utils/api/users.api';
 import { URLS } from '../constants/urls';
 import { useEffect, useState } from 'react';
 import UpdateUser from '../components/update-user/UpdateUser';
 
 const UserDetails = () => {
-	const navigate = useNavigate();
 	const { id } = useParams();
+	const navigate = useNavigate();
 
 	const [userById, setUserById] = useState();
 	const [isEditing, setIsEditing] = useState(false);
@@ -39,7 +39,9 @@ const UserDetails = () => {
 				<button onClick={() => deleteUser(userById._id, navigate)}>
 					Delete User
 				</button>
-				<button onClick={() => setIsEditing(!isEditing)}>Edit User</button>
+				<button onClick={() => setIsEditing(!isEditing)}>
+					{isEditing ? 'Close Edit' : 'Edit User'}
+				</button>
 			</div>
 
 			{isEditing && (
@@ -56,13 +58,21 @@ const UserDetails = () => {
 };
 
 const deleteUser = async (id, navigate) => {
-	await deleteData(`${URLS.API_USERS}/${id}`);
-	navigate('/users');
+	try {
+		await deleteData(`${URLS.API_USERS}/${id}`);
+		navigate('/users');
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const getUser = async (id, setUserById) => {
-	const user = await getData(`${URLS.API_USERS}/${id}`);
-	setUserById(user);
+	try {
+		const user = await getData(`${URLS.API_USERS}/${id}`);
+		setUserById(user);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export default UserDetails;
