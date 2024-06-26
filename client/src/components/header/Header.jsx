@@ -8,7 +8,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const Header = () => {
-	// const { userData, loading } = useContext(AuthContext);
+	const { userData, loading } = useContext(AuthContext);
 	return (
 		<StyledHeader>
 			<Link to='/'>LOGO</Link>
@@ -22,7 +22,8 @@ const Header = () => {
 			</StyledViewsContainer>
 
 			<StyledLoginContainer>
-				<Link to='/login'>LOGIN</Link>
+				{!loading && <Link to='/login'>LOGIN</Link>}
+
 				<Link to='/register'>CREATE USER</Link>
 			</StyledLoginContainer>
 		</StyledHeader>
