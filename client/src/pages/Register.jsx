@@ -103,7 +103,7 @@ const Register = () => {
 
 const createUser = async (formValues, setFormValues, navigate) => {
 	try {
-		await postData(URLS.API_USERS, formValues);
+		await postData(URLS.AUTH_REGISTER, formValues);
 		setFormValues({});
 		navigate('/users');
 	} catch (error) {

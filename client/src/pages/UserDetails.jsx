@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
 	StyledContent,
 	StyledUserCardImg,
@@ -8,10 +8,13 @@ import {
 } from './styles';
 import { deleteData, getData } from '../utils/api/users.api';
 import { URLS } from '../constants/urls';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UpdateUser from '../components/update-user/UpdateUser';
+import { AuthContext } from '../contexts/AuthContext';
 
 const UserDetails = () => {
+	const { userData } = useContext(AuthContext);
+
 	const { id } = useParams();
 	const navigate = useNavigate();
 
@@ -35,14 +38,16 @@ const UserDetails = () => {
 					{userById.active ? 'Active' : 'Inactive'}
 				</StyledUserStatus>
 			</StyledUserDetails>
-			<div>
-				<button onClick={() => deleteUser(userById._id, navigate)}>
-					Delete User
-				</button>
-				<button onClick={() => setIsEditing(!isEditing)}>
-					{isEditing ? 'Close Edit' : 'Edit User'}
-				</button>
-			</div>
+			{userData?.id === userById._id && (
+				<div>
+					<button onClick={() => deleteUser(userById._id, navigate)}>
+						Delete User
+					</button>
+					<button onClick={() => setIsEditing(!isEditing)}>
+						{isEditing ? 'Close Edit' : 'Edit User'}
+					</button>
+				</div>
+			)}
 
 			{isEditing && (
 				<div>

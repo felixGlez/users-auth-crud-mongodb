@@ -6,9 +6,10 @@ import { URLS } from '../../constants/urls';
 export const registerRequest = async body => {
 	try {
 		const response = await fetch(URLS.AUTH_REGISTER, {
-			method: METHODS.POST,
+			method: 'POST',
 			headers: HEADERS,
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
+			credentials: 'include'
 		});
 
 		if (!response.ok) {

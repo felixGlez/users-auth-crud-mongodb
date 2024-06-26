@@ -4,6 +4,7 @@ import { checkLogin } from '../utils/api/auth.api';
 
 const AuthProvider = ({ children }) => {
 	const [userData, setUserData] = useState(null); //Si hay usuario logueado
+	console.log(userData);
 	const [loading, setLoading] = useState(true); //Para saber si está en proceso mi verificación de usuario
 
 	useEffect(() => {

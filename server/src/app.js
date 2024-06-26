@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 // Uso de rutas
 app.use('/api/users', userRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 const startServer = async () => {
   try {

@@ -16,6 +16,7 @@ authController.login = async (req, res) => {
       return res.status(400).send({ error: 'The email does not exist' });
 
     const isMatch = await bcrypt.compare(password, userFound.password);
+    console.log(isMatch);
 
     if (!isMatch)
       return res.status(400).send({ error: 'The password is not correct' });
@@ -43,14 +44,14 @@ authController.register = async (req, res) => {
     const saltRounds = 10; // Número de rondas de sal para la encriptación
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const newUser = {
+    const newUser = new UserModel({
       username,
       email,
       img,
       name,
       active,
       password: hashedPassword, // Nueva password encriptada para la BBDD
-    };
+    });
 
     await newUser.save();
     res.status(201).send({ message: 'User registered' });
@@ -65,7 +66,7 @@ authController.verifyToken = async (req, res) => {
   if (!token) return res.status(401).send({ message: 'Not Token' });
 
   try {
-    const user = jwt.verify(token, TOKEN_SECRET); // Si coincide, desencripta la información del token
+    const user = jwt.verify(token, TOKEN_SECRET); // Si coincide, desencripta la información del token y la devuelve
 
     if (!user) return res.status(401).send({ message: 'Invalid token' });
 
