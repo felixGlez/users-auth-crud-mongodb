@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { URLS } from '../../constants/urls';
 import { updateData } from '../../utils/api/users.api';
-import { useNavigate } from 'react-router-dom';
 
 const UpdateUser = ({ userById, setUserById, setIsEditing }) => {
 	const [formValues, setFormValues] = useState({});

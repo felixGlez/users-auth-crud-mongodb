@@ -10,6 +10,7 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		// Este useEffect permite redireccionar una vez se ha comprobado userData
 		if (!userData) return;
 		navigate('/');
 	}, [userData]);

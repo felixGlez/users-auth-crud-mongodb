@@ -8,11 +8,11 @@ const UsersList = () => {
 	const [users, setUsers] = useState([]);
 	const [filter, setFilter] = useState(0);
 
-	const filteredUsers = filterByActive(users, filter);
-
 	useEffect(() => {
 		fetchUsers(setUsers);
 	}, []);
+
+	const filteredUsers = filterByActive(users, filter);
 
 	if (users.length === 0) return <h2>No users</h2>;
 

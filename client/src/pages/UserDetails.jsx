@@ -11,9 +11,10 @@ import { URLS } from '../constants/urls';
 import { useContext, useEffect, useState } from 'react';
 import UpdateUser from '../components/update-user/UpdateUser';
 import { AuthContext } from '../contexts/AuthContext';
+import { logoutUser } from '../utils/api/auth.api';
 
 const UserDetails = () => {
-	const { userData } = useContext(AuthContext);
+	const { userData, setUserData } = useContext(AuthContext);
 
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -40,7 +41,9 @@ const UserDetails = () => {
 			</StyledUserDetails>
 			{userData?.id === userById._id && (
 				<div>
-					<button onClick={() => deleteUser(userById._id, navigate)}>
+					<button
+						onClick={() => deleteUser(userById._id, navigate, setUserData)}
+					>
 						Delete User
 					</button>
 					<button onClick={() => setIsEditing(!isEditing)}>
@@ -62,10 +65,10 @@ const UserDetails = () => {
 	);
 };
 
-const deleteUser = async (id, navigate) => {
+const deleteUser = async (id, navigate, setUserData) => {
 	try {
 		await deleteData(`${URLS.API_USERS}/${id}`);
-		navigate('/users');
+		logoutUser(setUserData, navigate);
 	} catch (error) {
 		console.log(error);
 	}

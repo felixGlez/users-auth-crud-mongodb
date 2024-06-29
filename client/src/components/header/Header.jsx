@@ -22,7 +22,7 @@ const Header = () => {
 			</StyledViewsContainer>
 
 			<StyledLoginContainer>
-				{!loading && <Link to='/login'>LOGIN</Link>}
+				{!userData && <Link to='/login'>LOGIN</Link>}
 
 				<Link to='/register'>CREATE USER</Link>
 			</StyledLoginContainer>
