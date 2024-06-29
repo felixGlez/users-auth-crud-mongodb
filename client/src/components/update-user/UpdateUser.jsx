@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { URLS } from '../../constants/urls';
 import { updateData } from '../../utils/api/users.api';
 
-const UpdateUser = ({ userById, setUserById, setIsEditing }) => {
+const UpdateUser = ({ userById, setUserById, setContent }) => {
 	const [formValues, setFormValues] = useState({});
 
 	return (
 		<form
 			onSubmit={event =>
-				handleSubmit(event, formValues, userById, setUserById, setIsEditing)
+				handleSubmit(event, formValues, userById, setUserById, setContent)
 			}
 		>
 			<input
@@ -43,7 +43,7 @@ const UpdateUser = ({ userById, setUserById, setIsEditing }) => {
 	);
 };
 
-const updateUser = async (formValues, userById, setUserById, setIsEditing) => {
+const updateUser = async (formValues, userById, setUserById, setContent) => {
 	try {
 		const { _id } = userById;
 		const updatedUser = await updateData(
@@ -51,8 +51,7 @@ const updateUser = async (formValues, userById, setUserById, setIsEditing) => {
 			formValues
 		);
 		setUserById(updatedUser);
-
-		setIsEditing(false);
+		setContent();
 	} catch (error) {
 		console.log(error);
 	}
@@ -63,13 +62,13 @@ const handleSubmit = async (
 	formValues,
 	userById,
 	setUserById,
-	setIsEditing
+	setContent
 ) => {
 	event.preventDefault();
 
 	if (!formValues.username || !formValues.name || !formValues.email) return;
 
-	updateUser(formValues, userById, setUserById, setIsEditing);
+	updateUser(formValues, userById, setUserById, setContent);
 };
 
 export default UpdateUser;

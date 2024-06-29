@@ -90,5 +90,5 @@ export const checkLogin = async (setUserData, setLoading) => {
 export const logoutUser = (setUserData, navigate) => {
 	Cookies.remove('token');
 	setUserData(null);
-	navigate('/');
+	navigate('/users');
 };

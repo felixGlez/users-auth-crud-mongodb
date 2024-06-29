@@ -8,7 +8,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const Header = () => {
-	const { userData, loading } = useContext(AuthContext);
+	const { userData } = useContext(AuthContext);
 	return (
 		<StyledHeader>
 			<Link to='/'>LOGO</Link>

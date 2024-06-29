@@ -12,15 +12,17 @@ import { useContext, useEffect, useState } from 'react';
 import UpdateUser from '../components/update-user/UpdateUser';
 import { AuthContext } from '../contexts/AuthContext';
 import { logoutUser } from '../utils/api/auth.api';
+import { ModalContext } from '../contexts/ModalContext';
+import Modal from '../components/modal/Modal';
 
 const UserDetails = () => {
 	const { userData, setUserData } = useContext(AuthContext);
+	const { content, setContent } = useContext(ModalContext);
 
 	const { id } = useParams();
 	const navigate = useNavigate();
 
 	const [userById, setUserById] = useState();
-	const [isEditing, setIsEditing] = useState(false);
 
 	useEffect(() => {
 		getUser(id, setUserById);
@@ -46,13 +48,26 @@ const UserDetails = () => {
 					>
 						Delete User
 					</button>
-					<button onClick={() => setIsEditing(!isEditing)}>
-						{isEditing ? 'Close Edit' : 'Edit User'}
+					<button
+						onClick={() =>
+							setContent(
+								<UpdateUser
+									userById={userById}
+									setUserById={setUserById}
+									setContent={setContent}
+								/>
+							)
+						}
+					>
+						Edit User
+					</button>
+					<button onClick={() => logoutUser(setUserData, navigate)}>
+						Logout
 					</button>
 				</div>
 			)}
-
-			{isEditing && (
+			<Modal closeModal={() => setContent()}>{content}</Modal>
+			{/* {isEditing && (
 				<div>
 					<UpdateUser
 						userById={userById}
@@ -60,7 +75,7 @@ const UserDetails = () => {
 						setIsEditing={setIsEditing}
 					/>
 				</div>
-			)}
+			)} */}
 		</StyledContent>
 	);
 };
@@ -69,6 +84,7 @@ const deleteUser = async (id, navigate, setUserData) => {
 	try {
 		await deleteData(`${URLS.API_USERS}/${id}`);
 		logoutUser(setUserData, navigate);
+		navigate('/users');
 	} catch (error) {
 		console.log(error);
 	}
