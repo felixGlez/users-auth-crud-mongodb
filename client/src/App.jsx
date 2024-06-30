@@ -3,6 +3,7 @@ import { GlobalStyles } from './styles/GlobalStyles';
 import Router from './router/Router';
 import AuthProvider from './providers/Auth.provider';
 import ModalProvider from './providers/Modal.provider';
+import AllUsersProvider from './providers/AllUsers.provider';
 
 // https://randomuser.me/
 
@@ -14,7 +15,9 @@ const App = () => {
 			<BrowserRouter>
 				<AuthProvider>
 					<ModalProvider>
-						<Router />
+						<AllUsersProvider>
+							<Router />
+						</AllUsersProvider>
 					</ModalProvider>
 				</AuthProvider>
 			</BrowserRouter>

@@ -3,11 +3,19 @@ import styled from 'styled-components';
 const StyledContent = styled.div`
 	width: 80%;
 	padding: 1.5rem;
+	color: black;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 `;
 
 const StyledTitle = styled.h2`
 	font-size: 1.5rem;
 	color: #6d3dd4;
+`;
+
+const StyledSelect = styled.select`
+	width: 8rem;
 `;
 
 const StyledUsersContainer = styled.div`
@@ -51,6 +59,12 @@ const StyledUserDetails = styled.div`
 	padding: 0.5rem 1.5rem;
 `;
 
+const StyledButton = styled.button`
+	width: 8rem;
+	border-radius: 10px;
+	cursor: pointer;
+`;
+
 export {
 	StyledContent,
 	StyledTitle,
@@ -59,5 +73,7 @@ export {
 	StyledUserCardText,
 	StyledUserCardImg,
 	StyledUserDetails,
-	StyledUserStatus
+	StyledUserStatus,
+	StyledButton,
+	StyledSelect
 };

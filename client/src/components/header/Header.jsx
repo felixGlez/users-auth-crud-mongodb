@@ -12,19 +12,13 @@ const Header = () => {
 	return (
 		<StyledHeader>
 			<Link to='/'>LOGO</Link>
-			{/* {userData && (
-				<StyledViewsContainer>
-					<Link to='/users'>VIEW USERS</Link>
-				</StyledViewsContainer>
-			)} */}
+
 			<StyledViewsContainer>
 				<Link to='/users'>VIEW USERS</Link>
 			</StyledViewsContainer>
 
 			<StyledLoginContainer>
 				{!userData && <Link to='/login'>LOGIN</Link>}
-
-				<Link to='/register'>CREATE USER</Link>
 			</StyledLoginContainer>
 		</StyledHeader>
 	);

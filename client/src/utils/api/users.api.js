@@ -1,5 +1,6 @@
 import { HEADERS } from '../../constants/headers';
 import { METHODS } from '../../constants/methods';
+import { URLS } from '../../constants/urls';
 import { fetchData } from '../fetchData';
 
 export const getData = async url => {
@@ -31,4 +32,13 @@ export const deleteData = async url => {
 		headers: HEADERS
 	});
 	return data;
+};
+
+export const fetchUsers = async setUsers => {
+	try {
+		const users = await getData(URLS.API_USERS);
+		setUsers(users);
+	} catch (error) {
+		console.log(error);
+	}
 };

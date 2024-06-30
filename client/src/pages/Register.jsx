@@ -1,20 +1,22 @@
 import { StyledContent } from './styles';
-import { postData } from '../utils/api/users.api';
+import { fetchUsers, postData } from '../utils/api/users.api';
 import { URLS } from '../constants/urls';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { AllUsersContext } from '../contexts/AllUsersContext';
+import { ModalContext } from '../contexts/ModalContext';
 
 const Register = () => {
-	const [formValues, setFormValues] = useState({});
+	const { setUsers } = useContext(AllUsersContext);
+	const { setContent } = useContext(ModalContext);
 
-	const navigate = useNavigate();
+	const [formValues, setFormValues] = useState({});
 
 	return (
 		<StyledContent>
 			<p>REGISTER</p>
 			<form
 				onSubmit={event =>
-					handleSubmit(event, formValues, setFormValues, navigate)
+					handleSubmit(event, formValues, setFormValues, setUsers, setContent)
 				}
 			>
 				<input
@@ -101,11 +103,12 @@ const Register = () => {
 	);
 };
 
-const createUser = async (formValues, setFormValues, navigate) => {
+const createUser = async (formValues, setFormValues, setUsers, setContent) => {
 	try {
 		await postData(URLS.AUTH_REGISTER, formValues);
 		setFormValues({});
-		navigate('/users');
+		fetchUsers(setUsers);
+		setContent();
 	} catch (error) {
 		console.log(error);
 	}
@@ -128,10 +131,16 @@ const saveValues = (event, formValues, setFormValues) => {
 	setFormValues({ ...formValues, [name]: value });
 };
 
-const handleSubmit = (event, formValues, setFormValues, navigate) => {
+const handleSubmit = (
+	event,
+	formValues,
+	setFormValues,
+	setUsers,
+	setContent
+) => {
 	event.preventDefault();
 	event.target.reset();
-	createUser(formValues, setFormValues, navigate);
+	createUser(formValues, setFormValues, setUsers, setContent);
 };
 
 export default Register;

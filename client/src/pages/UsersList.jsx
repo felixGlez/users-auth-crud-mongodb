@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
-import { StyledContent, StyledTitle, StyledUsersContainer } from './styles';
-import { URLS } from '../constants/urls';
-import { getData } from '../utils/api/users.api';
+import { useContext, useState } from 'react';
+import {
+	StyledButton,
+	StyledContent,
+	StyledSelect,
+	StyledTitle,
+	StyledUsersContainer
+} from './styles';
 import User from '../components/user/User';
+import { ModalContext } from '../contexts/ModalContext';
+import Register from './Register';
+import Modal from '../components/modal/Modal';
+import { AllUsersContext } from '../contexts/AllUsersContext';
 
 const UsersList = () => {
-	const [users, setUsers] = useState([]);
-	const [filter, setFilter] = useState(0);
+	const { content, setContent } = useContext(ModalContext);
+	const { users } = useContext(AllUsersContext);
 
-	useEffect(() => {
-		fetchUsers(setUsers);
-	}, []);
+	const [filter, setFilter] = useState(0);
 
 	const filteredUsers = filterByActive(users, filter);
 
@@ -20,17 +26,23 @@ const UsersList = () => {
 		<StyledContent>
 			<StyledTitle>USERS</StyledTitle>
 
-			<select onChange={event => setFilter(Number(event.target.value))}>
+			<StyledSelect onChange={event => setFilter(Number(event.target.value))}>
 				<option value='0'>All Users</option>
 				<option value='1'>Active</option>
 				<option value='2'>Inactive</option>
-			</select>
+			</StyledSelect>
+
+			<StyledButton onClick={() => setContent(<Register />)}>
+				CREATE USER
+			</StyledButton>
 
 			<StyledUsersContainer>
 				{filteredUsers.map(user => (
 					<User key={user._id} user={user} />
 				))}
 			</StyledUsersContainer>
+
+			<Modal closeModal={() => setContent()}>{content}</Modal>
 		</StyledContent>
 	);
 };
@@ -44,15 +56,6 @@ const filterByActive = (users, filter) => {
 			return filteredUsers.filter(user => user.active);
 		case 2:
 			return filteredUsers.filter(user => !user.active);
-	}
-};
-
-const fetchUsers = async setUsers => {
-	try {
-		const users = await getData(URLS.API_USERS);
-		setUsers(users);
-	} catch (error) {
-		console.log(error);
 	}
 };
 

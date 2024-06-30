@@ -19,6 +19,7 @@ const StyledViewsContainer = styled.div`
 const StyledLoginContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	gap: 10px;
 `;
 
 export { StyledHeader, StyledViewsContainer, StyledLoginContainer };
