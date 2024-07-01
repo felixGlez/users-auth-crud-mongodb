@@ -1,5 +1,5 @@
 import { StyledContent } from './styles';
-import { fetchUsers, postData } from '../utils/api/users.api';
+import { postData } from '../utils/api/users.api';
 import { URLS } from '../constants/urls';
 import { useContext, useState } from 'react';
 import { AllUsersContext } from '../contexts/AllUsersContext';
@@ -105,9 +105,9 @@ const Register = () => {
 
 const createUser = async (formValues, setFormValues, setUsers, setContent) => {
 	try {
-		await postData(URLS.AUTH_REGISTER, formValues);
+		const allUsers = await postData(URLS.AUTH_REGISTER, formValues);
 		setFormValues({});
-		fetchUsers(setUsers);
+		setUsers(allUsers);
 		setContent();
 	} catch (error) {
 		console.log(error);

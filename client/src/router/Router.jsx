@@ -12,7 +12,9 @@ const Router = () => {
 		<Routes>
 			<Route path='/' element={<Layout />}>
 				<Route index element={<HomePage />} />
-				<Route path='/register' element={<Register />} />
+
+				{/* Hay páginas que ya no son necesarias por haber añadido las ventanas modales */}
+				{/* <Route path='/register' element={<Register />} /> */}
 				<Route path='/login' element={<Login />} />
 				<Route path='/users' element={<UsersList />} />
 				<Route path='/user-details/:id' element={<UserDetails />} />

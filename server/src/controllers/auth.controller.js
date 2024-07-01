@@ -54,7 +54,9 @@ authController.register = async (req, res) => {
     });
 
     await newUser.save();
-    res.status(201).send({ message: 'User registered' });
+
+    const allUsers = await UserModel.find();
+    res.status(200).send(allUsers);
   } catch (error) {
     console.error('Error al registrar usuario', error);
     res.status(500).send({ error: 'Error al registrar al usuario' });

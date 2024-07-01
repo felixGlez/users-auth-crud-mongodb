@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AllUsersContext } from '../contexts/AllUsersContext';
-import { fetchUsers } from '../utils/api/users.api';
+import { getData } from '../utils/api/users.api';
+import { URLS } from '../constants/urls';
 
 const AllUsersProvider = ({ children }) => {
 	const [users, setUsers] = useState([]);
@@ -14,6 +15,15 @@ const AllUsersProvider = ({ children }) => {
 			{children}
 		</AllUsersContext.Provider>
 	);
+};
+
+const fetchUsers = async setUsers => {
+	try {
+		const users = await getData(URLS.API_USERS);
+		setUsers(users);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export default AllUsersProvider;

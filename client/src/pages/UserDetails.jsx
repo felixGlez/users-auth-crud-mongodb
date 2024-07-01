@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import {
+	StyledButton,
 	StyledContent,
 	StyledUserCardImg,
 	StyledUserCardText,
 	StyledUserDetails,
 	StyledUserStatus
 } from './styles';
-import { deleteData, getData } from '../utils/api/users.api';
+import { getData } from '../utils/api/users.api';
 import { URLS } from '../constants/urls';
 import { useContext, useEffect, useState } from 'react';
 import UpdateUser from '../components/update-user/UpdateUser';
@@ -14,6 +15,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { logoutUser } from '../utils/api/auth.api';
 import { ModalContext } from '../contexts/ModalContext';
 import Modal from '../components/modal/Modal';
+import DeleteUser from '../components/delete-user/DeleteUser';
 
 const UserDetails = () => {
 	const { userData, setUserData } = useContext(AuthContext);
@@ -32,6 +34,7 @@ const UserDetails = () => {
 
 	return (
 		<StyledContent>
+			<StyledButton onClick={() => navigate('/users')}>Go Back</StyledButton>
 			<StyledUserDetails>
 				<StyledUserCardImg src={userById.img}></StyledUserCardImg>
 				<StyledUserCardText>USER: @{userById.username}</StyledUserCardText>
@@ -44,7 +47,15 @@ const UserDetails = () => {
 			{userData?.id === userById._id && (
 				<div>
 					<button
-						onClick={() => deleteUser(userById._id, navigate, setUserData)}
+						onClick={() =>
+							setContent(
+								<DeleteUser
+									id={id}
+									navigate={navigate}
+									setUserData={setUserData}
+								/>
+							)
+						}
 					>
 						Delete User
 					</button>
@@ -78,16 +89,6 @@ const UserDetails = () => {
 			)} */}
 		</StyledContent>
 	);
-};
-
-const deleteUser = async (id, navigate, setUserData) => {
-	try {
-		await deleteData(`${URLS.API_USERS}/${id}`);
-		logoutUser(setUserData, navigate);
-		navigate('/users');
-	} catch (error) {
-		console.log(error);
-	}
 };
 
 const getUser = async (id, setUserById) => {

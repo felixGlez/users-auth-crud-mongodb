@@ -33,12 +33,3 @@ export const deleteData = async url => {
 	});
 	return data;
 };
-
-export const fetchUsers = async setUsers => {
-	try {
-		const users = await getData(URLS.API_USERS);
-		setUsers(users);
-	} catch (error) {
-		console.log(error);
-	}
-};
