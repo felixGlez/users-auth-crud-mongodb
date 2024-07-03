@@ -4,12 +4,14 @@ import { URLS } from '../constants/urls';
 import { useContext, useState } from 'react';
 import { AllUsersContext } from '../contexts/AllUsersContext';
 import { ModalContext } from '../contexts/ModalContext';
+import UploadImg from '../components/upload-img/UploadImg';
 
 const Register = () => {
 	const { setUsers } = useContext(AllUsersContext);
 	const { setContent } = useContext(ModalContext);
 
 	const [formValues, setFormValues] = useState({});
+	console.log(formValues);
 
 	return (
 		<StyledContent>
@@ -47,43 +49,8 @@ const Register = () => {
 					required
 					onChange={event => saveValues(event, formValues, setFormValues)}
 				/>
-				<div>
-					<label htmlFor='men'>
-						<input
-							type='radio'
-							name='gender'
-							id='men'
-							value='men'
-							required
-							onChange={event => saveValues(event, formValues, setFormValues)}
-						/>
-						Man
-					</label>
-					<label htmlFor='women'>
-						<input
-							type='radio'
-							name='gender'
-							id='women'
-							value='women'
-							required
-							onChange={event => saveValues(event, formValues, setFormValues)}
-						/>
-						Woman
-					</label>
-				</div>
-				<button
-					type='button'
-					name='img'
-					onClick={() => generateImg(formValues, setFormValues)}
-					disabled={!formValues.gender}
-				>
-					GENERATE IMAGE
-				</button>
-				{formValues.img ? (
-					<img src={formValues.img} />
-				) : (
-					<img src='https://t3.ftcdn.net/jpg/05/53/79/60/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg' />
-				)}
+
+				<UploadImg formValues={formValues} setFormValues={setFormValues} />
 
 				<div>
 					<input
@@ -112,18 +79,6 @@ const createUser = async (formValues, setFormValues, setUsers, setContent) => {
 	} catch (error) {
 		console.log(error);
 	}
-};
-
-const generateRandomNumber = () => {
-	const number = Math.floor(Math.random() * 99);
-	return number;
-};
-
-const generateImg = (formValues, setFormValues) => {
-	const { gender } = formValues;
-	const randomNumber = generateRandomNumber();
-	const userImg = `https://randomuser.me/api/portraits/${gender}/${randomNumber}.jpg`;
-	setFormValues({ ...formValues, img: userImg });
 };
 
 const saveValues = (event, formValues, setFormValues) => {

@@ -1,4 +1,10 @@
 const UserModel = require('../models/user.model');
+const path = require('path');
+const fsPromises = require('fs/promises');
+
+require('dotenv').config();
+const { v2: cloudinary } = require('cloudinary');
+cloudinary.config(process.env.CLOUDINARY_URL);
 
 const controller = {};
 
@@ -80,6 +86,40 @@ controller.deleteUser = async (req, res) => {
     return res.status(200).send(allUsers);
   } catch (err) {
     return res.status(500).send({ error: 'Error reading database' + err });
+  }
+};
+
+// Subir imagen al server
+controller.uploadImage = async (req, res) => {
+  try {
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+
+    // console.log(req.files);
+
+    const photo = req.files.photo;
+
+    // Construir la ruta donde se guardará el archivo
+    const uploadPath = path.join(__dirname, '../uploads', photo.name);
+
+    // Mover el archivo a la ruta especificada
+    await photo.mv(uploadPath);
+
+    const nameForCloudinary = path.parse(photo.name).name;
+    console.log(path.parse(photo.name).name); //Esto sirve para poder dividir los datos, y sacar sólo el nombre de la imagen.
+
+    // Para subirlo:
+    const resultUpload = await cloudinary.uploader.upload(uploadPath, {
+      public_id: nameForCloudinary,
+    });
+
+    fsPromises.unlink(uploadPath); //Esto evita que se guarde en la carpeta uploads
+
+    res.status(201).send({ url: resultUpload.secure_url });
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    res.status(500).send(error.message || 'Internal Server Error');
   }
 };
 

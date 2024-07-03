@@ -1,6 +1,5 @@
 import { HEADERS } from '../../constants/headers';
 import { METHODS } from '../../constants/methods';
-import { URLS } from '../../constants/urls';
 import { fetchData } from '../fetchData';
 
 export const getData = async url => {
@@ -30,6 +29,14 @@ export const deleteData = async url => {
 	const data = await fetchData(url, {
 		method: METHODS.DELETE,
 		headers: HEADERS
+	});
+	return data;
+};
+
+export const uploadData = async (url, body = {}) => {
+	const data = await fetchData(url, {
+		method: METHODS.POST,
+		body
 	});
 	return data;
 };

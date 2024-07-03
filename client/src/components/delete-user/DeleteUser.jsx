@@ -20,7 +20,7 @@ const DeleteUser = ({ id, navigate, setUserData }) => {
 				>
 					Yes
 				</button>
-				<button>No</button>
+				<button onClick={() => setContent()}>No</button>
 			</div>
 		</div>
 	);

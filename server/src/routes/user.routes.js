@@ -8,5 +8,6 @@ userRoutes.get('/:id', controller.getUserById);
 userRoutes.post('/', controller.createUser);
 userRoutes.patch('/:id', controller.updateUser);
 userRoutes.delete('/:id', controller.deleteUser);
+userRoutes.post('/upload', controller.uploadImage);
 
 module.exports = userRoutes;

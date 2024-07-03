@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const app = express();
+const fileUpload = require('express-fileupload');
 
 const { corsOptions } = require('./config/cors.config');
 const userRoutes = require('./routes/user.routes');
@@ -15,6 +16,7 @@ require('dotenv').config();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload());
 
 // Uso de rutas
 app.use('/api/users', userRoutes);
